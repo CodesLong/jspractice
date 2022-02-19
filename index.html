@@ -9,14 +9,18 @@
 </head>
 <body>
     <h1>breakout</h1>
-    <p>
-       Use your right and left keys to move the paddle to bounce the ball up
-        and break the blocks. 
-    </p>
-    <p>
-        If you miss the ball, your score and the blocks will reset.
-    </p>
-    <button id="close-on" class="btn">Close</button>
+    <button id="rules-btn" class="btn rules-btn">Show Rules</button>
+    <div id="rules" class="rules">
+        <h2>how to play</h2>
+        <p>
+           Use your right and left keys to move the paddle to bounce the ball up
+            and break the blocks. 
+        </p>
+        <p>
+            If you miss the ball, your score and the blocks will reset.
+        </p>
+        <button id="close-on" class="btn">Close</button>
+    </div>
     <canvas id="canvas" width="800" height="800"></canvas>
     <script src="./script.js"></script>
 </body>
