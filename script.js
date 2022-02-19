@@ -44,14 +44,15 @@ const brickInfo = {
 
 //create brick
 const bricks = [];
-for (let i = 0; i < brickColumnCount; i++) {
+for (let i = 0; i < brickRowCount; i++) {
     bricks[i] = [];
     for (let j = 0; j < brickColumnCount; j++) {
         const x = i * (brickInfo.w + brickInfo.padding) + brickInfo.offsetX;
         const y = j * (brickInfo.h + brickInfo.padding) + brickInfo.offsetY;
-        bricks[i][j] = { x, y, ...brickInfo }
+        bricks[i][j] = { x, y, ...brickInfo };
     }
 }
+
 
 //draw ball on canvas 
 function drawBall() {
@@ -72,8 +73,8 @@ function drawPaddle() {
 }
 //draw score on canvas
 function drawScore() {
-    ctx.font = '16px Arial';
-    ctx.fillText(`Score: ${score}`, canvas.width - 65, 20);
+    ctx.font = '20px Arial';
+    ctx.fillText(`Score: ${score}`, canvas.width - 100, 30);
 }
 
 
@@ -126,32 +127,32 @@ function moveBall() {
     ) {
         ball.dy = -ball.speed;
     }
-}
-
-//brick collision
-bricks.forEach(column => {
-    column.forEach(brick => {
-        if (brick.visible) {
-            if (
-                ball.x - ball.size > brick.x && // left brick side check
-                ball.x + ball.size < brick.x + brick.w && // right brick side check
-                ball.y + ball.size > brick.y && // top brick side check
-                ball.y - ball.size < brick.y + brick.h // bottom brick side check
-            ) {
-                ball.dy *= -1;
-                brick.visible = false;
-
-                increaseScore();
+    //brick collision
+    bricks.forEach(column => {
+        column.forEach(brick => {
+            if (brick.visible) {
+                if (
+                    ball.x - ball.size > brick.x && // left brick side check
+                    ball.x + ball.size < brick.x + brick.w && // right brick side check
+                    ball.y + ball.size > brick.y && // top brick side check
+                    ball.y - ball.size < brick.y + brick.h // bottom brick side check
+                ) {
+                    ball.dy *= -1;
+                    brick.visible = false;
+    
+                    increaseScore();
+                }
             }
-        }
+        });
     });
-});
-
-//hit botton wall
-if (ball.y + ball.size > canvas.height) {
-    showAllBricks();
-    scoreq = 0;
+    
+    //hit botton wall
+    if (ball.y + ball.size > canvas.height) {
+        showAllBricks();
+        score = 0;
+    }
 }
+
 
 //increase score
 function increaseScore() {
@@ -176,10 +177,9 @@ function increaseScore() {
 //make all bricks appear
 function showAllBricks() {
     bricks.forEach(column => {
-        column.forEach(brick => brick.visible = true)
-    })
+        column.forEach(brick => (brick.visible = true));
+    });
 }
-
 //draw everything on canvas
 function draw() {
     //clear canvas 
